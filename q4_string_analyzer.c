@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <ctype.h>
 
 void analyze(char *str, int *v, int *c, int *d, int *s);
 void reverse(char *str);
@@ -10,7 +9,9 @@ void analyze(char *str, int *v, int *c, int *d, int *s) {
     char ch;
     *v = 0; *c = 0; *d = 0; *s = 0;
     while (*p != '\0') {
-        ch = tolower(*p);
+        ch = *p;
+        if (ch >= 'A' && ch <= 'Z')
+            ch = ch + 32;
         if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
             (*v)++;
         else if (ch >= 'a' && ch <= 'z')
@@ -45,7 +46,9 @@ int isPalindrome(char *str) {
     /* Copy without spaces, all lowercase — original str is NOT modified */
     while (*src != '\0') {
         if (*src != ' ') {
-            *dst = tolower(*src);
+            *dst = *src;
+            if (*dst >= 'A' && *dst <= 'Z')
+                *dst = *dst + 32;
             dst++;
         }
         src++;
